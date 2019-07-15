@@ -10,11 +10,11 @@ import java.util.Properties;
 /**
  * ConnectionUtil
  */
-public class Connect {
+public class ConnectionUtil {
     private Connection connection;
     private String url, user, password;
 
-    public Connect() {
+    public ConnectionUtil() {
         try {
             Properties properties = new Properties();
             properties.load(new FileReader("application.properties"));

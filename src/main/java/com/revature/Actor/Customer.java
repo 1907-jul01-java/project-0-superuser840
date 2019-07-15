@@ -1,24 +1,21 @@
-package com.revature.user;
+package com.revature.Actor;
 
-import com.revature.Transaction;
+import com.revature.Models.Account;
 
-public class Customer extends User implements Transaction{
+public class Customer extends Account {
 
-	int accountNumber;
-	
-	
-	@Override
+	//this.permission = 1;
+
 	public int Transfer(int Amount, int TransferAccount) {
 		// TODO Auto-generated method stub
 		return 0;
-	}	
-	
-	@Override
+	}
+
 	public int Deposit(int Amount, int AccountNumber) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	@Override
+
 	public int Withdrawl(int Amount, int AccountNumber) {
 		// TODO Auto-generated method stub
 		return 0;
@@ -31,5 +28,5 @@ public class Customer extends User implements Transaction{
 	public void setAccountNumber(int accountNumber) {
 		this.accountNumber = accountNumber;
 	}
-	
+
 }

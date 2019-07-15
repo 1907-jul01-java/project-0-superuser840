@@ -1,45 +1,41 @@
-package com.revature.user;
+package com.revature.Actor;
 
-import com.revature.Transaction;
+import com.revature.Models.Account;
 
-public class Admin extends User implements Transaction{
-	private String username;
-	private String password;
-	private String firstName;
-	private String lastName;
+public class Admin extends Account{
 
-	public Admin(String username, String password, String firstName, String lastName){
-		this.firstName = firstName;
-		this.lastName = lastName;
+	//this.permission = 3;
+
+	public void newAdmin(String username, String password, String name){
+		this.name = name;
 		this.username = username;
 		this.password = password;
+		this.permission = 3;
 	}
 
-	@Override
 	public int Deposit(int Amount, int AccountNumber) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
 	
 	public int Transfer(int Amount, int Account1, int Account2) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	@Override
+	
 	public int Transfer(int Amount, int TransferAccount) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	@Override
 	public int Withdrawl(int Amount, int AccountNumber) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	
+	/*
 	private void cancelAccount(int AccountNumber) {
-		
+		AccountDao.delete();
 	}
+	*/
 	
 }
