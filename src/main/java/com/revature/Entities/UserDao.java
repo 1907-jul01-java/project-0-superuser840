@@ -15,8 +15,7 @@ public class UserDao implements Dao<User> {
     @Override
     public void insert(User user) {
         try {
-            PreparedStatement pStatement = connection
-                    .prepareStatement("insert into users(username, password, name, permissions) values(?, ?, ?, ?)");
+            PreparedStatement pStatement = connection.prepareStatement("insert into users(username, password, name, permissions) values(?, ?, ?, ?)");
             pStatement.setString(1, user.getUsername());
             pStatement.setString(2, user.getPassword());
             pStatement.setString(3, user.getName());

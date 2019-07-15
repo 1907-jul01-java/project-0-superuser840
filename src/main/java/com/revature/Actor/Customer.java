@@ -22,7 +22,7 @@ public class Customer extends Account {
 	}
 
 	public int getAccountNumber() {
-		return accountNumber;
+		return this.accountNumber;
 	}
 
 	public void setAccountNumber(int accountNumber) {
