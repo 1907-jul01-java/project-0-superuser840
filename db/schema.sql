@@ -21,7 +21,7 @@ CREATE TABLE accounts(
 --CREATE TABLE link()
 
 
-ALTER TABLE users ADD accountno integer references accounts(accountnumber);
+--ALTER TABLE users ADD accountno integer references accounts(accountnumber);
 
 
 insert into users(username, password, name, permission) values ('mikeeroni', 'killemall', 'mike kostopolous', 1);
@@ -38,6 +38,8 @@ select * from accounts;
 update accounts set balance=100.32 where accountOwner='mike' and accounttype=1;
 update users set password='micropenis', name='timmothy' where username='michaleno18';
 update users set name='johnny' where username='admin';
+
+delete from accounts where accountowner='mikeeroni';
 
 select * from users;
 select accounts.accountnumber, users.username, users.password, accounts.balance

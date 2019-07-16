@@ -63,26 +63,13 @@ public class AccountDao implements Dao<Account> {
     }
 
 
-/**
- * 
- * 
- *      STILL NEEDS IMPLEMENTATION
- * 
- * 
-*/
-
     @Override
     public void delete(Account account) {
         try {
-            PreparedStatement pStatement = connection.prepareStatement("delete from users where 'username' = (?) or where 'name' = (?)");
-            pStatement.setString(1, account.getUsername());
-            pStatement.setString(2, account.getName());
+            PreparedStatement pStatement = connection.prepareStatement("delete from accounts where accountowner=? and accounttype=?");
+            pStatement.setString(1, account.getAccountOwner());
+            pStatement.setInt(2, account.getAccountType());
             pStatement.executeUpdate();
-            /*
-             * pStatement.setString(2, user.getPassword()); pStatement.setString(3,
-             * user.getName()); pStatement.setInt(4, user.getPermission());
-             * pStatement.executeUpdate();
-             */
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }

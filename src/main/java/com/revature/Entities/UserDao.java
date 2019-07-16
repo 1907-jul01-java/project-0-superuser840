@@ -63,15 +63,10 @@ public class UserDao implements Dao<User> {
     @Override
     public void delete(User user) {
         try {
-            PreparedStatement pStatement = connection.prepareStatement("delete from users where 'username' = (?) or where 'name' = (?)");
+            PreparedStatement pStatement = connection.prepareStatement("delete from users where username=?");
             pStatement.setString(1, user.getUsername());
             pStatement.setString(2, user.getName());
             pStatement.executeUpdate();
-            /*
-             * pStatement.setString(2, user.getPassword()); pStatement.setString(3,
-             * user.getName()); pStatement.setInt(4, user.getPermission());
-             * pStatement.executeUpdate();
-             */
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
