@@ -1,6 +1,5 @@
 package com.revature.Entities;
 
-import java.lang.Thread.State;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +9,7 @@ import com.revature.Models.User;
 /**
  * MovieDao
  */
-public class UserDao implements Dao<User> {
+public class EmployeeDao implements Dao<User> {
     Connection connection;
 
     @Override
@@ -50,8 +49,8 @@ public class UserDao implements Dao<User> {
                 user = new User();
                 user.setUsername(resultSet.getString("username"));
                 user.setPassword(resultSet.getString("password"));
-                user.setName(resultSet.getString("name"));
-                user.setPermission(resultSet.getInt("permission"));
+                user.setName(resultSet.getString("First Name"));
+                user.setPermission(resultSet.getInt("Permission"));
                 users.add(user);
             }
         } catch (SQLException e) {
@@ -60,48 +59,11 @@ public class UserDao implements Dao<User> {
         return users;
     }
 
-    public User getUserInfo(String username){
-        User user = new User();
-        user.username = username;
-        try{
-            Statement statement = connection.createStatement();
-            ResultSet resultset = statement.executeQuery("select * from users where username=" + user.username);
-            user.setName(resultset.getString("name"));
-            user.setPermission(resultset.getInt("permission"));
-            user.setPassword(resultset.getString("password"));
-            return user;
-        } catch (SQLException e){
-            System.err.println(e.getMessage());
-            return null;
-        }
-        
-        
-    }
-
-    public boolean checkExistingUser(String username, String password){
-        User user = new User();
-        user.username = username;
-        user.password = password;
-        try {
-            PreparedStatement pStatement = connection.prepareStatement("select * from users where username=? and password=?");
-            pStatement.setString(1, user.getUsername());
-            pStatement.setString(2, user.getPassword());
-            int exists = pStatement.executeUpdate();
-            if (exists==1){
-                return true;
-            }else{return false;}
-            
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
-            System.out.println("Cannot detirmine existance of user, assume true and try a new username");
-            return true;
-        }
-    }
-
     @Override
     public void update(User user) {
         try {
-            PreparedStatement pStatement = connection.prepareStatement("update users set password=?, name=? where username=?");
+            PreparedStatement pStatement = connection
+                    .prepareStatement("update users set password=?, name=? where username=?");
             pStatement.setString(1, user.getPassword());
             pStatement.setString(2, user.getName());
             pStatement.setString(3, user.getUsername());
@@ -124,7 +86,7 @@ public class UserDao implements Dao<User> {
 
     }
 
-    public UserDao(Connection connection) {
+    public EmployeeDao(Connection connection) {
         this.connection = connection;
     }
 }
