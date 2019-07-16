@@ -26,6 +26,10 @@ public class UserDao implements Dao<User> {
         }
     }
 
+    public void getUser(User user){
+        
+    }
+
     @Override
     public List<User> getAll() {
         User user;

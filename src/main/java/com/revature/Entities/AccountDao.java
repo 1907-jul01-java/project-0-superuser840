@@ -26,6 +26,11 @@ public class AccountDao implements Dao<Account> {
         }
     }
 
+    public Account getUserData(Account account){
+
+        return account;
+    }
+
     @Override
     public List<Account> getAll() {
         Account account;

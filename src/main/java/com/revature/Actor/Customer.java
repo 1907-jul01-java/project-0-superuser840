@@ -29,4 +29,7 @@ public class Customer extends Account {
 		this.accountNumber = accountNumber;
 	}
 
+	public Customer() {
+	}
+
 }
