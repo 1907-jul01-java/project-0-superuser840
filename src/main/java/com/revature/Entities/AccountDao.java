@@ -3,8 +3,7 @@ package com.revature.Entities;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import com.revature.Models.Account;
-//import com.revature.Util.ConnectionUtil;
+import com.revature.Models.*;
 
 /**
  * AccountDao

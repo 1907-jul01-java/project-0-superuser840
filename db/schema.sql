@@ -35,13 +35,17 @@ insert into accounts values(nextval('account_seq'), 3821.12, 1, 't','admin');
 select * from users;
 select * from accounts;
 
-update accounts set balance=100.32 where accountOwner='mike' and accounttype=1;
+update accounts set balance=100.32 where accountOwner like 'mike' and accounttype=1;
 update users set password='micropenis', name='timmothy' where username='michaleno18';
 update users set name='johnny' where username='admin';
 
-delete from accounts where accountowner='mikeeroni';
-
+--delete from accounts where accountowner='mikeeroni';
+/*
 select * from users;
 select accounts.accountnumber, users.username, users.password, accounts.balance
 From users 
 inner join accounts on accountowner = username;
+*/
+select accounts.*, users.*
+From users
+join accounts on username='mikeeroni';
