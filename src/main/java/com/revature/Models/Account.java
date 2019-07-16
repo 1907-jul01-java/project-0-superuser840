@@ -55,4 +55,10 @@ public class Account extends User{
 		this.accountOwner = accountOwner;
 	}
 
+	@Override
+	public String toString() {
+		return "Account [accountNumber=" + accountNumber + ", accountOwner=" + accountOwner + ", accountType="
+				+ accountType + ", approved=" + approved + ", balance=" + balance + "]";
+	}
+
 }

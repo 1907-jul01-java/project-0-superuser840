@@ -40,4 +40,10 @@ public class User {
 		this.permission = permission;
 	}
 
+	@Override
+	public String toString() {
+		return "User [name=" + name + ", password=" + password + ", permission=" + permission + ", username=" + username
+				+ "]";
+	}
+
 }
