@@ -14,15 +14,27 @@ public class UserDao implements Dao<User> {
 
     @Override
     public void insert(User user) {
-        try {
-            PreparedStatement pStatement = connection.prepareStatement("insert into users(username, password, name, permissions) values(?, ?, ?, ?)");
-            pStatement.setString(1, user.getUsername());
-            pStatement.setString(2, user.getPassword());
-            pStatement.setString(3, user.getName());
-            pStatement.setInt(4, user.getPermission());
-            pStatement.executeUpdate();
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
+        if (user.name != null){
+            try {
+                PreparedStatement pStatement = connection.prepareStatement("insert into users(username, password, name, permissions) values(?, ?, ?, ?)");
+                pStatement.setString(1, user.getUsername());
+                pStatement.setString(2, user.getPassword());
+                pStatement.setString(3, user.getName());
+                pStatement.setInt(4, user.getPermission());
+                pStatement.executeUpdate();
+            } catch (SQLException e) {
+                System.err.println(e.getMessage());
+            }
+        }else{
+            try {
+                PreparedStatement pStatement = connection.prepareStatement("insert into users(username, password, permissions) values(?, ?, ?)");
+                pStatement.setString(1, user.getUsername());
+                pStatement.setString(2, user.getPassword());
+                pStatement.setInt(4, user.getPermission());
+                pStatement.executeUpdate();
+            } catch (SQLException e) {
+                System.err.println(e.getMessage());
+            }
         }
     }
 
@@ -50,7 +62,8 @@ public class UserDao implements Dao<User> {
     @Override
     public void update(User user) {
         try {
-            PreparedStatement pStatement = connection.prepareStatement("update users set password=?, name=? where username=?");
+            PreparedStatement pStatement = connection
+                    .prepareStatement("update users set password=?, name=? where username=?");
             pStatement.setString(1, user.getPassword());
             pStatement.setString(2, user.getName());
             pStatement.setString(3, user.getUsername());
