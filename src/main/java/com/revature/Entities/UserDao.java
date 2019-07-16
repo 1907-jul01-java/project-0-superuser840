@@ -22,7 +22,7 @@ public class UserDao implements Dao<User> {
             pStatement.setInt(4, user.getPermission());
             pStatement.executeUpdate();
         } catch (SQLException e) {
-
+            System.err.println(e.getMessage());
         }
     }
 
@@ -32,7 +32,7 @@ public class UserDao implements Dao<User> {
         List<User> users = new ArrayList<>();
         try {
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("select * from movies");
+            ResultSet resultSet = statement.executeQuery("select * from users");
             while (resultSet.next()) {
                 user = new User();
                 user.setUsername(resultSet.getString("username"));
@@ -42,14 +42,22 @@ public class UserDao implements Dao<User> {
                 users.add(user);
             }
         } catch (SQLException e) {
-
+            System.err.println(e.getMessage());
         }
         return users;
     }
 
     @Override
     public void update(User user) {
-
+        try {
+            PreparedStatement pStatement = connection.prepareStatement("update users set password=?, name=? where username=?");
+            pStatement.setString(1, user.getPassword());
+            pStatement.setString(2, user.getName());
+            pStatement.setString(3, user.getUsername());
+            pStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
     }
 
     @Override
@@ -65,7 +73,7 @@ public class UserDao implements Dao<User> {
              * pStatement.executeUpdate();
              */
         } catch (SQLException e) {
-
+            System.err.println(e.getMessage());
         }
 
     }

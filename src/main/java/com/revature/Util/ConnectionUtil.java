@@ -38,7 +38,7 @@ public class ConnectionUtil {
         try {
             this.connection.close();
         } catch (SQLException e) {
-
+            e.getMessage();
         }
     }
 }
