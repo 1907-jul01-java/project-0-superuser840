@@ -16,7 +16,7 @@ public class UserDao implements Dao<User> {
     public void insert(User user) {
         if (user.name != null){
             try {
-                PreparedStatement pStatement = connection.prepareStatement("insert into users(username, password, name, permissions) values(?, ?, ?, ?)");
+                PreparedStatement pStatement = connection.prepareStatement("insert into users(username, password, name, permission) values(?, ?, ?, ?)");
                 pStatement.setString(1, user.getUsername());
                 pStatement.setString(2, user.getPassword());
                 pStatement.setString(3, user.getName());
@@ -27,7 +27,7 @@ public class UserDao implements Dao<User> {
             }
         }else{
             try {
-                PreparedStatement pStatement = connection.prepareStatement("insert into users(username, password, permissions) values(?, ?, ?)");
+                PreparedStatement pStatement = connection.prepareStatement("insert into users(username, password, permission) values(?, ?, ?)");
                 pStatement.setString(1, user.getUsername());
                 pStatement.setString(2, user.getPassword());
                 pStatement.setInt(4, user.getPermission());
@@ -59,16 +59,18 @@ public class UserDao implements Dao<User> {
         return users;
     }
 
-    public User getUserInfo(String username){
+    public User getUserInfo(String username, String password){
         User user = new User();
-        user.username = username;
+        user.setUsername(username);
+        user.setPassword(password);
         try{
-            PreparedStatement pStatement = connection.prepareStatement("select * from users where username=?");
+            PreparedStatement pStatement = connection.prepareStatement("select * from users where username=? and password=?");
             pStatement.setString(1, user.username);
+            pStatement.setString(2, user.password);
             ResultSet resultset = pStatement.executeQuery();
+            resultset.next();
             user.setName(resultset.getString("name"));
             user.setPermission(resultset.getInt("permission"));
-            user.setPassword(resultset.getString("password"));
             return user;
         } catch (SQLException e){
             System.err.println(e.getMessage());
@@ -78,26 +80,22 @@ public class UserDao implements Dao<User> {
         
     }
 
-    public boolean checkExistingUser(String username, String password){
+    public boolean checkExistingUser(String username){
         User user = new User();
         user.username = username;
-        user.password = password;
         try {
-            System.out.println("Actual first chekcpoint?");
-            PreparedStatement pStatement = connection.prepareStatement("select * from users where username=? and password=?");
-            System.out.println("First Checkpoin");/////////////////////////
+            PreparedStatement pStatement = connection.prepareStatement("select * from users where username=?");
             pStatement.setString(1, user.getUsername());
-            pStatement.setString(2, user.getPassword());
-            int exists = pStatement.executeUpdate();
-            System.out.println("Second Checkpoint");/////////////////////////
-            if (exists==1){
+            ResultSet resultset = pStatement.executeQuery();
+            if (resultset.next()){
                 return true;
             }else{return false;}
             
         } catch (SQLException e) {
             System.err.println(e.getMessage());
-            System.out.println("Cannot detirmine existance of user, assume true and try a new username");
-            return true;
+            System.out.println(e.getStackTrace());
+            System.out.println("Cannot detirmine existance of user, assume user doesnt exist and try a new username");
+            return false;
         }
     }
 

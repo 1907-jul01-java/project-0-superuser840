@@ -7,16 +7,16 @@ public class Account extends User{
 
 	ConnectionUtil connectionUtil = new ConnectionUtil();
 	AccountDao accountdao = new AccountDao(connectionUtil.getConnection());
-	public int balance;
+	public double balance;
 	public int accountType;
 	public int accountNumber;
 	public boolean approved = false;
 	public String accountOwner;
 
-	public void setBalance(int amount){
+	public void setBalance(double amount){
 		this.balance = amount;
 	}
-	public int getBalance(){
+	public double getBalance(){
 		return this.balance;
 	}
 

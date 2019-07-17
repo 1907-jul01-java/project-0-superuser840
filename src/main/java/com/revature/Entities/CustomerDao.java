@@ -3,69 +3,25 @@ package com.revature.Entities;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import com.revature.Models.User;
+import com.revature.Models.Account;
 //import com.revature.Util.ConnectionUtil;
 
 /**
- * MovieDao
+ * CustomerDao
  */
-public class CustomerDao implements Dao<User> {
+public class CustomerDao implements Dao<Account> {
     Connection connection;
 
     @Override
-    public void insert(User user) {
-        if (user.name != null){
-            try {
-                PreparedStatement pStatement = connection.prepareStatement("insert into users(username, password, name, permissions) values(?, ?, ?, ?)");
-                pStatement.setString(1, user.getUsername());
-                pStatement.setString(2, user.getPassword());
-                pStatement.setString(3, user.getName());
-                pStatement.setInt(4, user.getPermission());
-                pStatement.executeUpdate();
-            } catch (SQLException e) {
-                System.err.println(e.getMessage());
-            }
-        }else{
-            try {
-                PreparedStatement pStatement = connection.prepareStatement("insert into users(username, password, permissions) values(?, ?, ?)");
-                pStatement.setString(1, user.getUsername());
-                pStatement.setString(2, user.getPassword());
-                pStatement.setInt(4, user.getPermission());
-                pStatement.executeUpdate();
-            } catch (SQLException e) {
-                System.err.println(e.getMessage());
-            }
-        }
-    }
-
-    @Override
-    public List<User> getAll() {
-        User user;
-        List<User> users = new ArrayList<>();
+    public void insert(Account account) {
         try {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("select * from users");
-            while (resultSet.next()) {
-                user = new User();
-                user.setUsername(resultSet.getString("username"));
-                user.setPassword(resultSet.getString("password"));
-                user.setName(resultSet.getString("First Name"));
-                user.setPermission(resultSet.getInt("Permission"));
-                users.add(user);
-            }
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
-        }
-        return users;
-    }
-
-    @Override
-    public void update(User user) {
-        try {
-            PreparedStatement pStatement = connection.prepareStatement("update users set password=?, name=? where username=?");
-            pStatement.setString(1, user.getPassword());
-            pStatement.setString(2, user.getName());
-            pStatement.setString(3, user.getUsername());
+            PreparedStatement pStatement = connection
+                    .prepareStatement("insert into accounts values (nextval('account_seq'), ?, ?, ?, ?");
+            pStatement.setDouble(1, account.getBalance());
+            pStatement.setInt(2, account.getAccountType());
+            pStatement.setBoolean(3, account.isApproved());
+            pStatement.setInt(4, account.getPermission());
+            pStatement.setString(5, account.getUsername());
             pStatement.executeUpdate();
         } catch (SQLException e) {
             System.err.println(e.getMessage());
@@ -73,11 +29,74 @@ public class CustomerDao implements Dao<User> {
     }
 
     @Override
-    public void delete(User user) {
+    public List<Account> getAll() {
+        /*Account account;
+        List<Account> accounts = new ArrayList<>();
         try {
-            PreparedStatement pStatement = connection.prepareStatement("delete from users where username=?");
-            pStatement.setString(1, user.getUsername());
-            pStatement.setString(2, user.getName());
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("select * from accounts");
+            while (resultSet.next()) {
+                account = new Account();
+                account.setBalance(resultSet.getDouble("balance"));
+                account.setAccountType(resultSet.getInt("accounttype"));
+                account.setApproved(resultSet.getBoolean("approved"));
+                account.setAccountNumber(resultSet.getInt("accountnumber"));
+                account.setAccountOwner(resultSet.getString("accountowner"));
+                accounts.add(account);
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }*/
+        return null;
+    }
+
+    public List<Account> getUserAccounts(String username) {
+        Account account = new Account();
+        account.accountOwner = username;
+        List<Account> accounts = new ArrayList<>();
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement
+                    .executeQuery("select * from accounts where username=" + account.accountOwner);
+            while (resultSet.next()) {
+                account = new Account();
+                account.setBalance(resultSet.getDouble("balance"));
+                account.setAccountType(resultSet.getInt("accounttype"));
+                account.setApproved(resultSet.getBoolean("approved"));
+                account.setAccountNumber(resultSet.getInt("accountnumber"));
+                account.setAccountOwner(resultSet.getString("accountowner"));
+                accounts.add(account);
+            }
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            return null;
+        }
+
+        return accounts;
+    }
+
+    @Override
+    public void update(Account account) {
+        try {
+            PreparedStatement pStatement = connection
+                    .prepareStatement("update accounts set balance=? where accountowner=? and accounttype=?");
+            pStatement.setDouble(1, account.getBalance());
+            pStatement.setString(2, account.getAccountOwner());
+            pStatement.setInt(3, account.getAccountType());
+            pStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+    @Override
+    public void delete(Account account) {
+        try {
+            PreparedStatement pStatement = connection
+                    .prepareStatement("delete from accounts where accountowner=? and accounttype=?");
+            pStatement.setString(1, account.getAccountOwner());
+            pStatement.setInt(2, account.getAccountType());
             pStatement.executeUpdate();
         } catch (SQLException e) {
             System.err.println(e.getMessage());

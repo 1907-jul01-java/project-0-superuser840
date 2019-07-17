@@ -16,7 +16,7 @@ public class AdminDao implements Dao<Account> {
     public void insert(Account account) {
         try {
             PreparedStatement pStatement = connection.prepareStatement("insert into accounts values (nextval('account_seq'), ?, ?, ?, ?");
-            pStatement.setInt(1, account.getBalance());
+            pStatement.setDouble(1, account.getBalance());
             pStatement.setInt(2, account.getAccountType());
             pStatement.setBoolean(3, account.isApproved());
             pStatement.setInt(4, account.getPermission());
@@ -36,7 +36,7 @@ public class AdminDao implements Dao<Account> {
             ResultSet resultSet = statement.executeQuery("select * from accounts");
             while (resultSet.next()) {
                 account = new Account();
-                account.setBalance(resultSet.getInt("balance"));
+                account.setBalance(resultSet.getDouble("balance"));
                 account.setAccountType(resultSet.getInt("accounttype"));
                 account.setApproved(resultSet.getBoolean("approved"));
                 account.setAccountNumber(resultSet.getInt("accountnumber"));
@@ -56,7 +56,7 @@ public class AdminDao implements Dao<Account> {
             Statement statement = connection.createStatement();
             ResultSet resultset = statement.executeQuery("select * from accounts where accountowner=" + account.accountOwner);
             account.setAccountNumber(resultset.getInt("accountnumber"));
-            account.setBalance(resultset.getInt("balance"));
+            account.setBalance(resultset.getDouble("balance"));
             account.setAccountType(resultset.getInt("accounttype"));
             account.setApproved(resultset.getBoolean("approved"));
             return account;
@@ -70,7 +70,7 @@ public class AdminDao implements Dao<Account> {
     public void update(Account account) {
         try {
             PreparedStatement pStatement = connection.prepareStatement("update accounts set balance=? where accountowner=? and accounttype=?");
-            pStatement.setInt(1, account.getBalance());
+            pStatement.setDouble(1, account.getBalance());
             pStatement.setString(2, account.getAccountOwner());
             pStatement.setInt(3, account.getAccountType());
             pStatement.executeUpdate();

@@ -4,63 +4,70 @@ import com.revature.Entities.UserDao;
 import com.revature.Util.ConnectionUtil;
 import com.revature.Models.*;
 import java.util.Scanner;
+import com.revature.Menus.*;
 
 public class Logger {
 
-    public void logAction(int action) {
-        try (Scanner input = new Scanner(System.in)) {
+    public void logAction(String action, Scanner s) {
+        try {
             ConnectionUtil connectionUtil = new ConnectionUtil();
             UserDao userdao = new UserDao(connectionUtil.getConnection());
-            if (action == 1) {
+            if (action.equals("1")) {
                 // attempt to log in
                 User user = new User();
-                while (true) {
-                    System.out.println("Enter a username and password to login!");
-                    System.out.println("Username: ");
-                    user.username = input.nextLine().toLowerCase();
-                    System.out.println("Password: ");
-                    user.password = input.nextLine();
-                    if (userdao.checkExistingUser(user.username, user.password) == true) {
-                        System.out.println("Welcome " + user.username);
-                        user = userdao.getUserInfo(user.username);
-                        System.out.println(user.toString()); /// Temporary print statement to verify user info is
-                                                             /// grabbed
-                        switch (user.getPermission()){
-                            case 1:
-                            //Perform Customer transactions
+
+                do {
+                    System.out.println("\nEnter a username and password to login");
+                    System.out.print("Username: ");
+                    user.username = s.next().toLowerCase();
+                    System.out.print("Password: ");
+                    user.password = s.next();
+                    if (userdao.checkExistingUser(user.username) == true) {
+                        user = userdao.getUserInfo(user.username, user.password);
+
+                        switch (user.getPermission()) {
+                        case 1:
+                            // goto customer menu
+                            CustomerMenu custmenu = new CustomerMenu();
+                            custmenu.operate(user, s);
                             break;
-                            case 2:
-                            //Perform Employee transactions
+                        case 2:
+                            // goto employee menu
+                            //EmployeeMenu employeemenu = new EmployeeMenu(user, s);
                             break;
-                            case 3:
-                            //Perform Admin interactions
+                        case 3:
+                            // goto admin menu
+                            //AdminMenu adminmenu = new AdminMenu(user, s);
                             break;
                         }
                     } else {
                         System.out.println("Username or password didnt match, please try again");
                     }
-                }
-
-            } else if (action == 2) {
+                    System.out.println("Type 'exit' to go back");
+                } while (!s.next().equalsIgnoreCase("exit"));
+            } else if (action.equals("2")) {
                 // Create new user
                 User user = new User();
                 System.out.println("To create a new account, enter a username, password, and your name");
-                System.out.println("Username: ");
-                user.username = input.nextLine().toLowerCase();
-                System.out.println("Password: ");
-                user.password = input.nextLine();
-                System.out.println("Your full name: ");
-                user.name = input.nextLine().toLowerCase();
+                System.out.print("Username: ");
+                user.username = s.next().toLowerCase();
+                System.out.print("Password: ");
+                user.password = s.next();
+                System.out.print("Your full name: ");
+                user.name = s.next().toLowerCase();
                 System.out.println("Are you a customer(1), employee(2) or admin(3): ");
                 try {
-                    user.permission = input.nextInt();
+                    user.setPermission(s.nextInt());
+                    System.out.println(user.permission);
                 } catch (Exception e) {
                     System.err.println(e.getMessage());
+                    System.out.println("cannot set int");
                 }
                 userdao.insert(user);
+                System.out.println(user);
 
             } else {
-                System.out.println("Input a valid action");
+                System.out.println("Input a valid action\n");
             }
             connectionUtil.close();
         } catch (Exception e) {

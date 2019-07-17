@@ -16,19 +16,16 @@ public class ConnectionUtil {
     private String url, user, password;
 
     public ConnectionUtil() {
-        try (InputStream input = new FileInputStream("src/main/resources/application.properties")){
-            Properties properties = new Properties();
+        try {
+            //(InputStream input = new FileInputStream("src/main/resources/application.properties"))
+            //Properties properties = new Properties();
             //properties.load(new FileReader("application.properties"));
-            this.url = properties.getProperty("url");
-            this.user = properties.getProperty("user");
-            this.password = properties.getProperty("password");
-            System.out.println("failes at drivermanager");
+            this.url = "jdbc:postgresql://192.168.99.100:5432/bankdb";
+            this.user = "bankdb";
+            this.password = "bankdb";
             this.connection = DriverManager.getConnection(this.url, this.user, this.password);
-            System.out.println("Succedes");
-        } catch (SQLException e) {
-            e.getMessage();
-        } catch (IOException e) {
-            e.getMessage();
+        } catch(Exception e){
+            e.getStackTrace();
         }
     }
 
