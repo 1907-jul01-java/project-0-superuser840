@@ -3,16 +3,16 @@ package com.revature.Entities;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import com.revature.Models.User;
+import com.revature.Models.*;
 //import com.revature.Util.ConnectionUtil;
 
 /**
  * MovieDao
  */
-public class EmployeeDao implements Dao<User> {
+public class EmployeeDao  {
     Connection connection;
 
-    @Override
+  
     public void insert(User user) {
         if (user.name != null){
             try {
@@ -38,7 +38,6 @@ public class EmployeeDao implements Dao<User> {
         }
     }
 
-    @Override
     public List<User> getAll() {
         User user;
         List<User> users = new ArrayList<>();
@@ -59,21 +58,21 @@ public class EmployeeDao implements Dao<User> {
         return users;
     }
 
-    @Override
-    public void update(User user) {
+
+    public void update(Account account) {
         try {
             PreparedStatement pStatement = connection
-                    .prepareStatement("update users set password=?, name=? where username=?");
-            pStatement.setString(1, user.getPassword());
-            pStatement.setString(2, user.getName());
-            pStatement.setString(3, user.getUsername());
+                    .prepareStatement("update accounts set permission=? where accountnumber=?");
+            pStatement.setInt(1, account.getPermission());
+            pStatement.setInt(2, account.getAccountNumber());
             pStatement.executeUpdate();
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
     }
 
-    @Override
+
+
     public void delete(User user) {
         try {
             PreparedStatement pStatement = connection.prepareStatement("delete from users where username=?");

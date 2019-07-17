@@ -70,7 +70,7 @@ public class CustomerMenu {
         double amount;
         int accountno;
         Customer customer = new Customer();
-
+        
         System.out.println("\n1. Withdrawl\n2. Deposit\n3. Transfer\n");
         int action = s.nextInt();
         switch (action) {
@@ -92,7 +92,7 @@ public class CustomerMenu {
             int accountNo2;
             System.out.print("Enter the account number you want to Withdrawl from: ");
             accountno = s.nextInt();
-            System.out.print("Enter the account number you want to Transfer money to");
+            System.out.print("Enter the account number you want to Transfer money to: ");
             accountNo2 = s.nextInt();
             System.out.print("Enter quantity to Transfer: ");
             amount = s.nextDouble();

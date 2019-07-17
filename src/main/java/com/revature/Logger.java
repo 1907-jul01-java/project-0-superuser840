@@ -33,11 +33,13 @@ public class Logger {
                             break;
                         case 2:
                             // goto employee menu
-                            //EmployeeMenu employeemenu = new EmployeeMenu(user, s);
+                            EmployeeMenu employeemenu = new EmployeeMenu();
+                            employeemenu.operate(user, s);
                             break;
                         case 3:
                             // goto admin menu
-                            //AdminMenu adminmenu = new AdminMenu(user, s);
+                            AdminMenu adminmenu = new AdminMenu();
+                            adminmenu.operate(user, s);
                             break;
                         }
                     } else {
