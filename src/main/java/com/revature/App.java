@@ -12,7 +12,7 @@ public class App {
             Logger login = new Logger();
             while (true){
                 
-                System.out.println("Press 1 to sign in \nPress 2 to create a new account\nEnter exit to exit\n");
+                System.out.println("\nPress 1 to sign in \nPress 2 to create a new account\nEnter exit to exit\n");
                 try {
                     action = s.next();
                     if (action.equalsIgnoreCase("exit")){
@@ -29,7 +29,7 @@ public class App {
                         login.logAction(action, s);
                         break;
                     default:
-                        System.out.println("Not a valid input, please enter a valid number\n");
+                        System.out.println("\nNot a valid input, please enter a valid number\n");
                     }
                 } catch (InputMismatchException e) {
                     System.out.println("input not accepted, please enter a valid input\n");

@@ -15,13 +15,11 @@ public class CustomerDao implements Dao<Account> {
     @Override
     public void insert(Account account) {
         try {
-            PreparedStatement pStatement = connection
-                    .prepareStatement("insert into accounts values (nextval('account_seq'), ?, ?, ?, ?");
+            PreparedStatement pStatement = connection.prepareStatement("insert into accounts values (nextval('account_seq'), ?, ?, ?, ?)");
             pStatement.setDouble(1, account.getBalance());
             pStatement.setInt(2, account.getAccountType());
             pStatement.setBoolean(3, account.isApproved());
-            pStatement.setInt(4, account.getPermission());
-            pStatement.setString(5, account.getUsername());
+            pStatement.setString(4, account.getAccountOwner());
             pStatement.executeUpdate();
         } catch (SQLException e) {
             System.err.println(e.getMessage());
@@ -55,9 +53,9 @@ public class CustomerDao implements Dao<Account> {
         account.accountOwner = username;
         List<Account> accounts = new ArrayList<>();
         try {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement
-                    .executeQuery("select * from accounts where username=" + account.accountOwner);
+                PreparedStatement pStatement = connection.prepareStatement("select * from accounts where accountowner=?");
+                pStatement.setString(1, account.getAccountOwner());
+                ResultSet resultSet = pStatement.executeQuery();
             while (resultSet.next()) {
                 account = new Account();
                 account.setBalance(resultSet.getDouble("balance"));
@@ -74,6 +72,26 @@ public class CustomerDao implements Dao<Account> {
         }
 
         return accounts;
+    }
+
+    public Account grabAccount(int accountNumber){
+        try{
+            Account account = new Account();
+            PreparedStatement pStatement = connection.prepareStatement("select * from accounts where accountnumber=?");
+            pStatement.setInt(1, accountNumber);
+            ResultSet resultSet = pStatement.executeQuery();
+            resultSet.next();
+            account.setBalance(resultSet.getDouble("balance"));
+            account.setAccountType(resultSet.getInt("accounttype"));
+            account.setApproved(resultSet.getBoolean("approved"));
+            account.setAccountNumber(resultSet.getInt("accountnumber"));
+            account.setAccountOwner(resultSet.getString("accountowner"));
+        return account;
+        }catch (SQLException e){
+            //System.err.println("l");
+            //e.getStackTrace();
+            return null;
+        }
     }
 
     @Override

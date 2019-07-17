@@ -1,10 +1,13 @@
 package com.revature.Menus;
 
 import com.revature.Models.User;
+import com.revature.Actor.Customer;
 import java.util.Scanner;
 import com.revature.Models.Account;
 import com.revature.Entities.CustomerDao;
 import com.revature.Util.*;
+import java.util.List;
+import java.util.ArrayList;
 
 public class CustomerMenu {
 
@@ -16,7 +19,13 @@ public class CustomerMenu {
         String accessOperation;
         boolean loop = true;
         do {
-            System.out.println("1. Create new account\n2. access existing account/s\n3. Exit\n");
+            if (user.name != null) {
+                System.out.println("\nWelcome " + user.name);
+            } else {
+                System.out.println("\nWelcome " + user.username);
+            }
+            System.out.println(
+                    "1. Create new account\n2. Display existing account/s\n3. Operate on account/s\n4. Exit\n");
             accessOperation = s.next();
             switch (accessOperation) {
             case "1":
@@ -37,8 +46,9 @@ public class CustomerMenu {
         Account account = new Account();
         System.out.println("Start account application");
         System.out.println("Enter initial deposit balance?");
+        System.out.print("$");
         account.balance = s.nextDouble();
-        System.out.println("Checking or Savings?");
+        System.out.println("Checking(1) or Savings(2)?");
         account.accountType = s.nextInt();
         account.approved = false;
         account.permission = 1;
@@ -46,8 +56,44 @@ public class CustomerMenu {
         customerDao.insert(account);
     }
 
+    public void displayAccounts(User user, Scanner s) {
+        List<Account> accounts = new ArrayList<>();
+        accounts = customerDao.getUserAccounts(user.username);
+        System.out.println(accounts.toString());
+    }
+
     public void accessAccounts(User user, Scanner s) {
-        customerDao.getUserAccounts(user.username);
+        int action = s.nextInt();
+        int amount;
+        int accountno;
+        Customer customer = new Customer();
+
+        System.out.println("\n1. Withdrawl\n2. Deposit\n3. Transfer\n");
+        switch (action) {
+        case 1:
+            System.out.println("Enter quantity to Withdrawl: ");
+            amount = s.nextInt();
+            System.out.println("Enter the account number you want to withdrawl from: ");
+            accountno = s.nextInt();
+            customer.Withdrawl(amount, accountno);
+            break;
+        case 2:
+            System.out.println("Enter quantity to Deposit: ");
+            amount = s.nextInt();
+            System.out.println("Enter the account number you want to Deposit to: ");
+            accountno = s.nextInt();
+            customer.Deposit(amount, accountno);
+            break;
+        case 3:
+            int accountNo2;
+            System.out.println("Enter quantity to Transfer: ");
+            amount = s.nextInt();
+            System.out.println("Enter the account number you want to Withdrawl from: ");
+            accountno = s.nextInt();
+            System.out.println("Enter the account number you want to Transfer money to");
+            customer.Transfer(amount, accountno, accountNo2);
+            break;
+        }
     }
 
 }

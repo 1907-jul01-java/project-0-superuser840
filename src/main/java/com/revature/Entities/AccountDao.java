@@ -106,4 +106,5 @@ public class AccountDao implements Dao<Account> {
     public AccountDao(Connection connection) {
         this.connection = connection;
     }
+
 }

@@ -43,7 +43,7 @@ public class Logger {
                     } else {
                         System.out.println("Username or password didnt match, please try again");
                     }
-                    System.out.println("Type 'exit' to go back");
+                    System.out.println("Type 'exit' to go back, or enter a key to log into another user");
                 } while (!s.next().equalsIgnoreCase("exit"));
             } else if (action.equals("2")) {
                 // Create new user
@@ -53,8 +53,9 @@ public class Logger {
                 user.username = s.next().toLowerCase();
                 System.out.print("Password: ");
                 user.password = s.next();
-                System.out.print("Your full name: ");
+                System.out.println("Your name: ");
                 user.name = s.next().toLowerCase();
+                
                 System.out.println("Are you a customer(1), employee(2) or admin(3): ");
                 try {
                     user.setPermission(s.nextInt());
