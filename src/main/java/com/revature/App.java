@@ -5,22 +5,24 @@ import java.util.Scanner;
 import com.revature.Logger;
 
 public class App {
-    public void main(String[] args) {
-        try (Scanner scanner = new Scanner(System.in);) {
+    public static void main(String[] args) {
+        int logAction;
+        try (Scanner scanner = new Scanner(System.in);){
+             
 
-            int logaction = 0;
             Logger login = new Logger();
             while (true) {
-                System.out.println("Press 1 to sign in \nPress 2 to create a new account\n Press 0 to exit\n");
-                logaction = scanner.nextInt();
-                if (logaction == 0) {
+                System.out.println("Press 1 to sign in \nPress 2 to create a new account\nPress 0 to exit\n");
+                logAction = scanner.nextInt();
+                if (logAction == 0) {
                     break;
                 } else {
-                    login.logAction(logaction);
+                    login.logAction(logAction);
                 }
             }
         } catch (Exception e) {
-            System.err.println(e.getMessage());
+            e.printStackTrace();
+            System.out.println("Failed at App exception");
         }
     }
 }

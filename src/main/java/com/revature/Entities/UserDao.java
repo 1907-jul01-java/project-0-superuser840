@@ -63,8 +63,9 @@ public class UserDao implements Dao<User> {
         User user = new User();
         user.username = username;
         try{
-            Statement statement = connection.createStatement();
-            ResultSet resultset = statement.executeQuery("select * from users where username=" + user.username);
+            PreparedStatement pStatement = connection.prepareStatement("select * from users where username=?");
+            pStatement.setString(1, user.username);
+            ResultSet resultset = pStatement.executeQuery();
             user.setName(resultset.getString("name"));
             user.setPermission(resultset.getInt("permission"));
             user.setPassword(resultset.getString("password"));
@@ -82,10 +83,13 @@ public class UserDao implements Dao<User> {
         user.username = username;
         user.password = password;
         try {
+            System.out.println("Actual first chekcpoint?");
             PreparedStatement pStatement = connection.prepareStatement("select * from users where username=? and password=?");
+            System.out.println("First Checkpoin");/////////////////////////
             pStatement.setString(1, user.getUsername());
             pStatement.setString(2, user.getPassword());
             int exists = pStatement.executeUpdate();
+            System.out.println("Second Checkpoint");/////////////////////////
             if (exists==1){
                 return true;
             }else{return false;}

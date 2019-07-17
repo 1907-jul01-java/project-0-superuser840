@@ -36,9 +36,6 @@ public class Logger {
                             //Perform Admin interactions
                             break;
                         }
-
-
-                        break;
                     } else {
                         System.out.println("Username or password didnt match, please try again");
                     }

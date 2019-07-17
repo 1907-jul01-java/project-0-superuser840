@@ -1,10 +1,11 @@
 {
     "sqltools.connections": [
         {
+            "askForPassword": false,
             "connectionTimeout": 30,
             "database": "bankdb",
             "dialect": "PostgreSQL",
-            "name": "Banking DB",
+            "name": "bankdb",
             "password": "bankdb",
             "port": 5432,
             "server": "192.168.99.100",

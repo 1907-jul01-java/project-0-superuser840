@@ -34,8 +34,8 @@ insert into accounts values(nextval('account_seq'), 235.89, 0, 'f','mikeeroni');
 insert into accounts values(nextval('account_seq'), 288.33, 1, 'f','michaleno18');
 insert into accounts values(nextval('account_seq'), 3821.12, 1, 't','admin');
 
-select username from users where username='michaleno18';
-select * from accounts;
+select * from users where username='michaleno18' and password='iammichael';
+/*select * from accounts;
 
 update accounts set balance=100.32 where accountOwner='mike' and accounttype=1;
 update users set password='passWord123', name='timmothy' where username='michaleno18';
@@ -47,3 +47,4 @@ select * from users;
 select accounts.accountnumber, users.username, users.password, accounts.balance, accounts.accounttype, accounts.approved
 From accounts 
 inner join users on accountowner = username;
+*/
