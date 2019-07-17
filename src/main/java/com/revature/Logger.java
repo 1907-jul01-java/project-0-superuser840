@@ -25,6 +25,19 @@ public class Logger {
                         user = userdao.getUserInfo(user.username);
                         System.out.println(user.toString()); /// Temporary print statement to verify user info is
                                                              /// grabbed
+                        switch (user.getPermission()){
+                            case 1:
+                            //Perform Customer transactions
+                            break;
+                            case 2:
+                            //Perform Employee transactions
+                            break;
+                            case 3:
+                            //Perform Admin interactions
+                            break;
+                        }
+
+
                         break;
                     } else {
                         System.out.println("Username or password didnt match, please try again");
@@ -54,7 +67,7 @@ public class Logger {
             }
             connectionUtil.close();
         } catch (Exception e) {
-            // TODO: handle exception
+            System.err.println(e.getMessage());
         }
 
     }

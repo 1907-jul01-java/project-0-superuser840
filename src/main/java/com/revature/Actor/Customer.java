@@ -1,32 +1,24 @@
 package com.revature.Actor;
 
+
+import com.revature.Entities.AccountDao;
+import com.revature.Util.*;
 import com.revature.Models.Account;
 
 public class Customer extends Account {
-
-	//this.permission = 1;
-
-	public int Transfer(int Amount, int TransferAccount) {
-		// TODO Auto-generated method stub
-		return 0;
+	ConnectionUtil connectionUtil = new ConnectionUtil();
+	AccountDao accountdao = new AccountDao(connectionUtil.getConnection());
+	public void Transfer(int Amount, String username, int account1, int account2) {
+		
 	}
 
-	public int Deposit(int Amount, int AccountNumber) {
-		// TODO Auto-generated method stub
-		return 0;
+	public void Deposit(int Amount, int AccountNumber) {
+		
 	}
 
-	public int Withdrawl(int Amount, int AccountNumber) {
-		// TODO Auto-generated method stub
-		return 0;
+	public void Withdrawl(int Amount, int AccountNumber) {
+		
 	}
 
-	public int getAccountNumber() {
-		return this.accountNumber;
-	}
-
-	public void setAccountNumber(int accountNumber) {
-		this.accountNumber = accountNumber;
-	}
 
 }

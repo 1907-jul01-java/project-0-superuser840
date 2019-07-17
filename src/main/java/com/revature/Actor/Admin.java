@@ -1,20 +1,8 @@
 package com.revature.Actor;
 
-import com.revature.Models.Account;
+public class Admin extends Employee{
 
-public class Admin extends Account implements Transaction{
-
-	public Admin(String username, String password) {
-		this.username = username;
-		this.password = password;
-		this.permission = 3;
-	}
-
-
-	public Admin(String username, String password, String name) {
-		this.name = name;
-		this.username = username;
-		this.password = password;
+	public Admin() {
 		this.permission = 3;
 	}
 	

@@ -29,7 +29,6 @@ insert into users(username, password, permission) VALUES('michaleno18', 'iammich
 insert into users(username, password, permission) values('admin', 'password', 3);
 insert into users(username, password, permission) values('employee1', 's3Cur3pAss', 2);
 insert into users(username, password, permission) values('customer3', 'scruglebutt', 1);
-insert into users(username, permission) values('accountVoid', 1);
 insert into accounts values(nextval('account_seq'), 0, 1, 'f', 'mikeeroni');
 insert into accounts values(nextval('account_seq'), 235.89, 0, 'f','mikeeroni');
 insert into accounts values(nextval('account_seq'), 288.33, 1, 'f','michaleno18');
@@ -45,6 +44,6 @@ update users set name='johnny' where username='admin';
 delete from accounts where accountowner='mikeeroni';
 
 select * from users;
-select accounts.accountnumber, users.username, users.password, accounts.balance
-From users 
-inner join accounts on accountowner = username;
+select accounts.accountnumber, users.username, users.password, accounts.balance, accounts.accounttype, accounts.approved
+From accounts 
+inner join users on accountowner = username;

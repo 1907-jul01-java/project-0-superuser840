@@ -1,7 +1,12 @@
 package com.revature.Models;
 
+import com.revature.Entities.AccountDao;
+import com.revature.Util.ConnectionUtil;
+
 public class Account extends User{
 
+	ConnectionUtil connectionUtil = new ConnectionUtil();
+	AccountDao accountdao = new AccountDao(connectionUtil.getConnection());
 	public int balance;
 	public int accountType;
 	public int accountNumber;

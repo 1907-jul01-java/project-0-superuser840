@@ -49,6 +49,33 @@ public class AccountDao implements Dao<Account> {
         return accounts;
     }
 
+    public List<Account> getUserAccounts(String username){
+        Account account = new Account();
+        account.accountOwner = username;
+        List<Account> accounts = new ArrayList<>();
+        try{
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("select * from accounts where username=" + account.accountOwner);
+            while (resultSet.next()){
+                account = new Account();
+                account.setBalance(resultSet.getInt("balance"));
+                account.setAccountType(resultSet.getInt("accounttype"));
+                account.setApproved(resultSet.getBoolean("approved"));
+                account.setAccountNumber(resultSet.getInt("accountnumber"));
+                account.setAccountOwner(resultSet.getString("accountowner"));
+                accounts.add(account);
+
+            }
+            
+        } catch (SQLException e){
+            System.err.println(e.getMessage());
+            return null;
+        }
+        
+        return accounts;
+    }
+
+
     @Override
     public void update(Account account) {
         try {

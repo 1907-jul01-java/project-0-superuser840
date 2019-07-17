@@ -1,6 +1,5 @@
 package com.revature.Entities;
 
-import java.lang.Thread.State;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
