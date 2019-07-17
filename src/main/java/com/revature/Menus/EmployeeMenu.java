@@ -1,8 +1,7 @@
 package com.revature.Menus;
 
 import java.util.Scanner;
-import com.revature.Models.User;
-import com.revature.Models.Account;
+import com.revature.Models.*;
 import com.revature.Util.*;
 import java.util.List;
 import java.util.ArrayList;
@@ -30,10 +29,12 @@ public class EmployeeMenu extends CustomerMenu {
             accessOperation = s.next();
             switch (accessOperation) {
             case "1":
-                this.displayAll(user, s);
+                this.displayAll();
                 break;
             case "2":
                 System.out.println("Enter the username for the accounts you want to view");
+                String username = s.next();
+                user.setUsername(username);
                 this.displayAccounts(user, s);
                 break;
             case "3":
@@ -55,7 +56,8 @@ public class EmployeeMenu extends CustomerMenu {
         employeeDao.update(account);
     }
 
-    public void displayAll(User user, Scanner s) {
-        employeeDao.getAll();
+    public void displayAll() {
+        List<User> users = new ArrayList<>();
+        users = employeeDao.getAll();
     }
 }

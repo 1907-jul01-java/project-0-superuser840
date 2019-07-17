@@ -1,6 +1,6 @@
 package com.revature.Actor;
 
-public class Admin extends Employee{
+public class Admin extends Customer{
 
 	public Admin() {
 		this.permission = 3;
