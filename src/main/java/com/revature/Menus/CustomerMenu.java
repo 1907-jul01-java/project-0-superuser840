@@ -32,9 +32,12 @@ public class CustomerMenu {
                 this.newAccount(user, s);
                 break;
             case "2":
-                this.accessAccounts(user, s);
+                this.displayAccounts(user, s);
                 break;
             case "3":
+                this.accessAccounts(user, s);
+                break;
+            case "4":
                 loop = false;
                 break;
             }
@@ -63,34 +66,36 @@ public class CustomerMenu {
     }
 
     public void accessAccounts(User user, Scanner s) {
-        int action = s.nextInt();
-        int amount;
+
+        double amount;
         int accountno;
         Customer customer = new Customer();
 
         System.out.println("\n1. Withdrawl\n2. Deposit\n3. Transfer\n");
+        int action = s.nextInt();
         switch (action) {
         case 1:
-            System.out.println("Enter quantity to Withdrawl: ");
-            amount = s.nextInt();
-            System.out.println("Enter the account number you want to withdrawl from: ");
+            System.out.print("Enter the account number you want to withdrawl from: ");
             accountno = s.nextInt();
+            System.out.print("Enter quantity to Withdrawl: ");
+            amount = s.nextDouble();
             customer.Withdrawl(amount, accountno);
             break;
         case 2:
-            System.out.println("Enter quantity to Deposit: ");
-            amount = s.nextInt();
-            System.out.println("Enter the account number you want to Deposit to: ");
+            System.out.print("Enter the account number you want to Deposit to: ");
             accountno = s.nextInt();
+            System.out.print("Enter quantity to Deposit: ");
+            amount = s.nextDouble();
             customer.Deposit(amount, accountno);
             break;
         case 3:
             int accountNo2;
-            System.out.println("Enter quantity to Transfer: ");
-            amount = s.nextInt();
-            System.out.println("Enter the account number you want to Withdrawl from: ");
+            System.out.print("Enter the account number you want to Withdrawl from: ");
             accountno = s.nextInt();
-            System.out.println("Enter the account number you want to Transfer money to");
+            System.out.print("Enter the account number you want to Transfer money to");
+            accountNo2 = s.nextInt();
+            System.out.print("Enter quantity to Transfer: ");
+            amount = s.nextDouble();
             customer.Transfer(amount, accountno, accountNo2);
             break;
         }

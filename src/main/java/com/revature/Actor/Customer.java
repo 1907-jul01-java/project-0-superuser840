@@ -11,29 +11,35 @@ public class Customer extends Account {
 	CustomerDao customerDao = new CustomerDao(connectionUtil.getConnection());
 	Account account = new Account();
 
-	public void Transfer(int Amount, String username, int accountNo1, int accountNo2) {
+	public void Transfer(double Amount, int accountNo1, int accountNo2) {
 		Account account2 = new Account();
-		int amount = Math.abs(Amount);
+		double amount = Math.abs(Amount);
 		account = customerDao.grabAccount(accountNo1);
 		account2 = customerDao.grabAccount(accountNo2);
 		account.balance -= amount;
 		account2.balance += amount;
-		//update account 1
-		//update account2
+		customerDao.update(account);
+		customerDao.update(account2);
+		System.out.println(account.toString());
+		System.out.println(account2.toString());
 	}
 
-	public void Deposit(int Amount, int AccountNumber) {
-		int amount = Math.abs(Amount);
+	public void Deposit(double Amount, int AccountNo) {
+		double amount = Math.abs(Amount);
+		account = customerDao.grabAccount(AccountNo);
 		account.balance += amount;
-		//update account
+		customerDao.update(account);
+		System.out.println(account.toString());
 	}
 
-	public void Withdrawl(int Amount, int AccountNo) {
+	public void Withdrawl(double Amount, int AccountNo) {
 		
-		int amount = Math.abs(Amount);
+		double amount = Math.abs(Amount);
 		account = customerDao.grabAccount(AccountNo);
 		if (account.balance-amount >=0){
-			//Update account
+			account.balance -= amount;
+			customerDao.update(account);
+			System.out.println(account.toString());
 		}else{
 			System.out.println("Operation would result in negative balance");
 		}

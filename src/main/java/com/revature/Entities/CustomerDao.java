@@ -98,10 +98,9 @@ public class CustomerDao implements Dao<Account> {
     public void update(Account account) {
         try {
             PreparedStatement pStatement = connection
-                    .prepareStatement("update accounts set balance=? where accountowner=? and accounttype=?");
+                    .prepareStatement("update accounts set balance=? where accountnumber=?");
             pStatement.setDouble(1, account.getBalance());
-            pStatement.setString(2, account.getAccountOwner());
-            pStatement.setInt(3, account.getAccountType());
+            pStatement.setInt(2, account.getAccountNumber());
             pStatement.executeUpdate();
         } catch (SQLException e) {
             System.err.println(e.getMessage());
